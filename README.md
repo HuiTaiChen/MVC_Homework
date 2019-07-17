@@ -3,3 +3,4 @@
 #0.0.2 20190712 Finish first homework
 #0.0.3 20190716 Created DB
 #0.0.4 20190717 ViewModel 串接 DB
+#0.0.5 20190717 抽成Service

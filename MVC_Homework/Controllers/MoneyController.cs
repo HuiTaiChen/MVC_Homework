@@ -6,18 +6,26 @@ using System.Web;
 using System.Web.Mvc;
 using MVC_Homework.Models;
 using System.Data.Entity;
+using MVC_Homework.Service;
 
 namespace MVC_Homework.Controllers
 {
 	public class MoneyController : Controller
 	{
-		private SkillTreeHomeworkEntities db = new SkillTreeHomeworkEntities();
+		//20190717 抽成Service
+		private readonly MoneyService _moneyService;
+
+		public MoneyController()
+		{
+			_moneyService = new MoneyService();
+		}
+
 		// GET: Money
 		public ActionResult Money()
 		{
 			List<AccountViewModel> viewModels = new List<AccountViewModel> { };
-			//20190717 改由真DB串接
-			var accountbookList = db.AccountBook.ToList();
+			//20190717 改由真DB串接，抽成Service
+			var accountbookList = _moneyService.Lookup();
 			int i = 0;
 			foreach (var item in accountbookList)
 			{
