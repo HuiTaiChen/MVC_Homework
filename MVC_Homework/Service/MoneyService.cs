@@ -4,48 +4,52 @@ using System.Linq;
 using System.Web;
 using MVC_Homework.Models;
 using System.Data.Entity;
+using MVC_Homework.Models.ViewModels;
+using MVC_Homework.Repository;
 
 namespace MVC_Homework.Service
 {
 	public class MoneyService
 	{
-		private readonly SkillTreeHomeworkEntities _db;
-		public MoneyService()
+		private readonly IRepository<AccountBook> _MoneyRepository;
+
+		public MoneyService(IUnitOfWork unitOfWork)
 		{
-			_db = new SkillTreeHomeworkEntities();
+			_MoneyRepository = new Repository<AccountBook>(unitOfWork);
 		}
+
+		public void Add(string Categoryyy, string Amounttt, string Dateee, Guid Id)
+		{
+			_MoneyRepository.Create(new AccountBook
+			{
+				Amounttt = Convert.ToInt32(Amounttt),
+				Dateee = Convert.ToDateTime(Dateee),
+				Id = Id
+			});
+		}
+
 		public IEnumerable<AccountBook> Lookup()
 		{
-
-			return _db.AccountBook.ToList();
+			return _MoneyRepository.LookupAll();
 		}
 
-		public AccountBook GetSingle(Guid AccountBookId)
+		public AccountBook GetSingle(Guid orderId)
 		{
-			return _db.AccountBook.Find(AccountBookId);
+			return _MoneyRepository.GetSingle(d => d.Id == orderId);
 		}
 
-		public void Add(AccountBook AccountBook)
-		{
-			_db.AccountBook.Add(AccountBook);			
-		}
+		
 
 		public void Edit(AccountBook pageData, AccountBook oldData)
 		{
 			oldData.Amounttt = pageData.Amounttt;
-			oldData.Categoryyy = pageData.Categoryyy;
 			oldData.Dateee = pageData.Dateee;
+			oldData.Id = pageData.Id;
 		}
 
 		public void Delete(AccountBook data)
 		{
-			_db.AccountBook.Remove(data);
+			_MoneyRepository.Remove(data);
 		}
-
-		public void Save()
-		{
-			_db.SaveChanges();
-		}
-		
 	}
 }
