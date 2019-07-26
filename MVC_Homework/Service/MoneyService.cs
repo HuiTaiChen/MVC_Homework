@@ -28,28 +28,78 @@ namespace MVC_Homework.Service
 			});
 		}
 
-		public IEnumerable<AccountBook> Lookup()
+		public IEnumerable<AccountViewModel> Lookup()
 		{
-			return _MoneyRepository.LookupAll();
+			return covertViewModel(_MoneyRepository.LookupAll());
 		}
 
-		public AccountBook GetSingle(Guid orderId)
+		public IEnumerable<AccountViewModel> GetSingle(Guid orderId)
 		{
-			return _MoneyRepository.GetSingle(d => d.Id == orderId);
+			return covertViewModel(_MoneyRepository.GetSingle(d => d.Id == orderId));
 		}
 
-		
 
-		public void Edit(AccountBook pageData, AccountBook oldData)
+
+		public void Edit(AccountViewModel pageData, AccountViewModel oldData)
 		{
-			oldData.Amounttt = pageData.Amounttt;
-			oldData.Dateee = pageData.Dateee;
-			oldData.Id = pageData.Id;
+			oldData.Money = pageData.Money;
+			oldData.Date = pageData.Date;
+			oldData.No = pageData.No;
 		}
 
-		public void Delete(AccountBook data)
+		public void Delete(AccountViewModel data)
 		{
-			_MoneyRepository.Remove(data);
+			_MoneyRepository.Remove(covertModel(data));
 		}
+
+		private IEnumerable<AccountViewModel> covertViewModel(IEnumerable<AccountBook> accountBook)
+		{
+			var viewModels = new List<AccountViewModel>();
+			int i = 0;
+			foreach (var item in accountBook)
+			{
+
+				AccountViewModel data = new AccountViewModel
+				{
+					No = ++i,
+					Money = item.Amounttt.ToString("###,###"),
+					Date = item.Dateee.ToString("yyyy-MM-dd"),
+					Category = item.Categoryyy == 0 ? "支出" : "收入"
+				};
+				viewModels.Add(data);
+			}
+			return viewModels;
+		}
+		private IEnumerable<AccountViewModel> covertViewModel(AccountBook accountBook)
+		{
+			var viewModels = new List<AccountViewModel>();
+			int i = 0;
+
+			AccountViewModel data = new AccountViewModel
+			{
+				No = ++i,
+				Money = accountBook.Amounttt.ToString("###,###"),
+				Date = accountBook.Dateee.ToString("yyyy-MM-dd"),
+				Category = accountBook.Categoryyy == 0 ? "支出" : "收入"
+			};
+			viewModels.Add(data);
+
+			return viewModels;
+		}
+		private AccountBook covertModel(AccountViewModel accountViewModel)
+		{
+			var accountbook = new AccountBook();
+			
+			AccountBook data = new AccountBook
+			{				
+				Amounttt = Convert.ToInt32(accountViewModel.Money),
+				Dateee = Convert.ToDateTime(accountViewModel.Date),
+				Categoryyy = Convert.ToInt32(accountViewModel.Category )
+			};
+			
+
+			return data;
+		}
+
 	}
 }

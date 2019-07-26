@@ -5,3 +5,4 @@
 #0.0.4 20190717 ViewModel 串接 DB
 #0.0.5 20190717 抽成Service
 #0.0.6 20190725 將Service 抽成 Repository
+#0.0.7 20190726 將Service 中 model 修改成 ViewModel 

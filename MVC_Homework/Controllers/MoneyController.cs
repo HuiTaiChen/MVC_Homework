@@ -28,19 +28,8 @@ namespace MVC_Homework.Controllers
 		{
 			var viewModels = new List<AccountViewModel>();
 			var accountbookList = _moneyService.Lookup();
-			int i = 0;
-			foreach (var item in accountbookList)
-			{
-
-				AccountViewModel data = new AccountViewModel
-				{
-					No = ++i,
-					Money = item.Amounttt.ToString("###,###"),
-					Date = item.Dateee.ToString("yyyy-MM-dd"),
-					Category = item.Categoryyy == 0 ? "支出" : "收入"
-				};
-				viewModels.Add(data);
-			}		
+			viewModels.AddRange(accountbookList);
+				
 			return View(viewModels);
 		}
 	}
