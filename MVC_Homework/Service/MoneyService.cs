@@ -18,13 +18,15 @@ namespace MVC_Homework.Service
 			_MoneyRepository = new Repository<AccountBook>(unitOfWork);
 		}
 
-		public void Add(string Categoryyy, string Amounttt, string Dateee, Guid Id)
+		public void Add(AccountViewModel account)
 		{
 			_MoneyRepository.Create(new AccountBook
 			{
-				Amounttt = Convert.ToInt32(Amounttt),
-				Dateee = Convert.ToDateTime(Dateee),
-				Id = Id
+				Categoryyy = Convert.ToInt32(account.Category),
+				Amounttt = Convert.ToInt32(account.Money),
+				Dateee = Convert.ToDateTime(account.Date),
+				Remarkkk = account.Description,
+				Id = Guid.NewGuid()
 			});
 		}
 

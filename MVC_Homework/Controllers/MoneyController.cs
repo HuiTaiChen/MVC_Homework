@@ -29,8 +29,21 @@ namespace MVC_Homework.Controllers
 			var viewModels = new List<AccountViewModel>();
 			var accountbookList = _moneyService.Lookup();
 			viewModels.AddRange(accountbookList);
-				
+
 			return View(viewModels);
+		}
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Money([Bind(Include = "Category,Money,Date,Description")]AccountViewModel accountBook)
+		{
+			if (ModelState.IsValid)
+			{
+				_moneyService.Add(accountBook);
+				_unitOfWork.Commit();
+			}
+
+			return RedirectToAction("Money");
+
 		}
 	}
 }

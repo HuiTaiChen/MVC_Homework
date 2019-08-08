@@ -3,47 +3,48 @@
     ViewBag.Title = "Money";
 }
 
-<h2>Money</h2>
-<div class="well">
-    <form class="form-horizontal" method="post" action="Money">
-        <div class="form-group">
-            <label for="Type" class="col-sm-2 control-label">類別</label>
-            <div class="col-sm-10">
-                <select id="Type" class="form-control">
-                    <option value="" selected>請選擇</option>
-                    <option value="1">支出</option>
-                    <option value="2">收入</option>
-                </select>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <h2>Money</h2>
+    <div class="well">
+        <form class="form-horizontal" method="post" action="Money">
+            <div class="form-group">
+                <label for="Type" class="col-sm-2 control-label">類別</label>
+                <div class="col-sm-10">
+                    <select id="Category" class="form-control" name="Category">
+                        <option value="" selected>請選擇</option>
+                        <option value="0">支出</option>
+                        <option value="1">收入</option>
+                    </select>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="Cost" class="col-sm-2 control-label">金額</label>
-            <div class="col-sm-10">
-
-                @Html.TextBox("Cost", 0)
+            <div class="form-group">
+                <label for="Cost" class="col-sm-2 control-label">金額</label>
+                <div class="col-sm-10">
+                    @Html.TextBox("Money", 0)
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="Costdate" class="col-sm-2 control-label">日期</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="Costdate" placeholder="日期">
+            <div class="form-group">
+                <label for="Costdate" class="col-sm-2 control-label">日期</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="Date" placeholder="日期" name="Date">
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="Note" class="col-sm-2 control-label">備註</label>
-            <div class="col-sm-10">
-                <textarea class="form-control" id="Note">
-                </textarea>
+            <div class="form-group">
+                <label for="Note" class="col-sm-2 control-label">備註</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" name="Description"></textarea>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-8 col-sm-4">
-                <button type="submit" class="btn btn-default">送出</button>
+            <div class="form-group">
+                <div class="col-sm-offset-8 col-sm-4">
+                    <button type="submit" class="btn btn-default">送出</button>
+                </div>
             </div>
-        </div>
-    </form>
-</div>
-
+        </form>
+    </div>
+}
 @Html.Partial("_Data")
 
 @section Scripts {

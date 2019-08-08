@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SkillTreeHomeworkModelStoreContainer" CdmEntityContainer="SkillTreeHomeworkEntities">
+    <EntitySetMapping Name="AccountBook">
+      <EntityTypeMapping TypeName="SkillTreeHomeworkModel.AccountBook">
+        <MappingFragment StoreEntitySet="AccountBook">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Categoryyy" ColumnName="Categoryyy" />
+          <ScalarProperty Name="Amounttt" ColumnName="Amounttt" />
+          <ScalarProperty Name="Dateee" ColumnName="Dateee" />
+          <ScalarProperty Name="Remarkkk" ColumnName="Remarkkk" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
